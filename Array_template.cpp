@@ -2,58 +2,61 @@
 #include"Array_template.h"
 
 using namespace std;
-typedef int TYPE;//¿É¸ü¸ÄÊı×éµÄÀàĞÍ
+typedef int TYPE;//å¯æ›´æ”¹æ•°ç»„çš„ç±»å‹
 
 
 
-void BubblingSort(Array_template<TYPE>& array);//Ã°ÅİÅÅĞò
-void SelectSort(Array_template<TYPE>& array);//Ñ¡ÔñÅÅĞò
-void InsertSort(Array_template<TYPE>& array);//²åÈëÅÅĞò
-void shellSort(Array_template<TYPE>& array);//Ï£¶ûÅÅĞò
-void MergeSort(Array_template<TYPE>& array);//¹é²¢ÅÅĞò(¼òÒ×½Ó¿Ú)
-
+void BubblingSort(Array_template<TYPE>& array);//å†’æ³¡æ’åº
+void SelectSort(Array_template<TYPE>& array);//é€‰æ‹©æ’åº
+void InsertSort(Array_template<TYPE>& array);//æ’å…¥æ’åº
+void shellSort(Array_template<TYPE>& array);//å¸Œå°”æ’åº
+void MergeSort(Array_template<TYPE>& array);//å½’å¹¶æ’åº(ç®€æ˜“æ¥å£)
+void QuickSort(Array_template<TYPE>& array);//å¿«é€Ÿæ’åº
 
 void arrayDynamic() 
 {
 	
 	enum {
-		NUM = 30,	//Ëæ»úÉú³ÉÊı×éµÄ³ß´ç
+		NUM = 30,	//éšæœºç”Ÿæˆæ•°ç»„çš„å°ºå¯¸
 	};
 		
-	//´´½¨ Ëæ»ú ¶¯Ì¬Êı×é
+	//åˆ›å»º éšæœº åŠ¨æ€æ•°ç»„
 	Array_template<TYPE> array;		
 	srand((unsigned int)time(NULL));
-	for (int i = 0; i < NUM; i++){array.addary(rand() % 100);}//%26+65ÊÇ´óĞ´×ÖÄ¸µÄ·¶Î§
+	for (int i = 0; i < NUM; i++){array.addary(rand() % 100);}//%26+65æ˜¯å¤§å†™å­—æ¯çš„èŒƒå›´
 	array.printez();
 
 
 #if 0
-	//Ã°ÅİÅÅĞò
+	//å†’æ³¡æ’åº
 	BubblingSort(array);
 
 #elif 0
-	//Ñ¡ÔñÅÅĞò
+	//é€‰æ‹©æ’åº
 	SelectSort(array);
 
 #elif 0
-	//²åÈëÅÅĞò
+	//æ’å…¥æ’åº
 	InsertSort(array);
 
 #elif 0
-	//Ï£¶ûÅÅĞò
+	//å¸Œå°”æ’åº
 	shellSort(array);
 
-#elif 1
-	//¹é²¢ÅÅĞò
+#elif 0
+	//å½’å¹¶æ’åº
 	MergeSort(array);
-
+	
+#elif 1
+	//å¿«é€Ÿæ’åº
+	QuickSort(array);
 
 #endif
 	array.printez();
 }
 
 
-//Ã°ÅİÅÅĞò
+//å†’æ³¡æ’åº
 void BubblingSort(Array_template<TYPE>& array)
 {
 	for (int i = 0; i < array.getcapa() - 1; i++) {
@@ -65,9 +68,9 @@ void BubblingSort(Array_template<TYPE>& array)
 			}
 		}
 	}
-	cout << "Ã°ÅİÅÅĞò:" << endl;
+	cout << "å†’æ³¡æ’åº:" << endl;
 }
-//Ñ¡ÔñÅÅĞò
+//é€‰æ‹©æ’åº
 void SelectSort(Array_template<TYPE>& array)
 {
 	for (int i = 0; i < array.getcapa() - 1; i++)
@@ -75,17 +78,17 @@ void SelectSort(Array_template<TYPE>& array)
 		int position = i;
 		for (int j = i + 1; j < array.getcapa(); j++)
 		{
-			if (array[j] < array[position])	 position = j;	//ÕÒµ½×îĞ¡Î»µÄË÷Òı
+			if (array[j] < array[position])	 position = j;	//æ‰¾åˆ°æœ€å°ä½çš„ç´¢å¼•
 		}
-		if (position != i) {			//×îĞ¡Î»ºÍiÎ»»»Î»
+		if (position != i) {			//æœ€å°ä½å’Œiä½æ¢ä½
 			TYPE temp = array[i];
 			array[i] = array[position];
 			array[position] = temp;
 		}
 	}
-	cout << "Ñ¡ÔñÅÅĞò:" << endl;
+	cout << "é€‰æ‹©æ’åº:" << endl;
 }
-//²åÈëÅÅĞò
+//æ’å…¥æ’åº
 void InsertSort(Array_template<TYPE>& array)
 {
 	for (int i = 1; i < array.getcapa(); i++)
@@ -100,25 +103,25 @@ void InsertSort(Array_template<TYPE>& array)
 		}
 		array[j + 1] = temp;
 	}
-	cout << "²åÈëÅÅĞò:" << endl;
+	cout << "æ’å…¥æ’åº:" << endl;
 }
-//Ï£¶ûÅÅĞò
+//å¸Œå°”æ’åº
 void shellSort(Array_template<TYPE>& array) 
 {
-	//¸ù¾İÊı×ésize È·¶¨Ôö³¤Á¿hµÄ³õÊ¼Öµ
+	//æ ¹æ®æ•°ç»„size ç¡®å®šå¢é•¿é‡hçš„åˆå§‹å€¼
 	int h = 1;
 	while (h < array.getcapa() / 2) {
 		h = 2 * h + 1;
 	}
-	//Ã¿hÎ» ÔªËØ½¨Á¢ĞÂÊı×é ½øĞĞ²åÈëÅÅĞò
-	while (h >= 1)						//ÖØĞÂ´´½¨×ÓÊı×é
+	//æ¯hä½ å…ƒç´ å»ºç«‹æ–°æ•°ç»„ è¿›è¡Œæ’å…¥æ’åº
+	while (h >= 1)						//é‡æ–°åˆ›å»ºå­æ•°ç»„
 	{
-		//cout << "Ôö³¤Á¿h :" << h << "\t0  1  2  3  4  5  6  7  8  9" << endl;
-		for (int i = 0; i < h; i++)//±éÀúËùÓĞ×ÓÊı×é ²åÈëÅÅĞò
+		//cout << "å¢é•¿é‡h :" << h << "\t0  1  2  3  4  5  6  7  8  9" << endl;
+		for (int i = 0; i < h; i++)//éå†æ‰€æœ‰å­æ•°ç»„ æ’å…¥æ’åº
 		{
-			if (i + h > array.getcapa() - 1) break;//µÚÒ»ÂÖÑ­»·ÈİÒ×²úÉúÔ½½ç
+			if (i + h > array.getcapa() - 1) break;//ç¬¬ä¸€è½®å¾ªç¯å®¹æ˜“äº§ç”Ÿè¶Šç•Œ
 			
-			int n = 1;//nÊÇ ×ÓÊı×éindex    Êµ¼Êindex=a[i]+n*h
+			int n = 1;//næ˜¯ å­æ•°ç»„index    å®é™…index=a[i]+n*h
 			while (i + n * h < array.getcapa())
 			{
 				TYPE temp = array[i + n * h];
@@ -134,53 +137,84 @@ void shellSort(Array_template<TYPE>& array)
 				//array.printez();
 			}
 		}
-		h = h / 2;//Ôö³¤Á¿h¼õĞ¡¹æÔò
+		h = h / 2;//å¢é•¿é‡hå‡å°è§„åˆ™
 	}
-	cout << "Ï£¶ûÅÅĞò:" << endl;
+	cout << "å¸Œå°”æ’åº:" << endl;
 }
-//¹é²¢ÅÅĞò  ºÏ²¢×óÓÒ×ÓÊı×é²¢ÅÅĞò
+//å½’å¹¶æ’åº  åˆå¹¶å·¦å³å­æ•°ç»„å¹¶æ’åº
 void Merge(Array_template<TYPE>& array, int low, int mid, int high)
 {
-	// ¶¨ÒåÖ¸Õë
+	// å®šä¹‰æŒ‡é’ˆ
 	int i = low;
 	int left = low;
 	int right = mid + 1;
 	TYPE* assit = new TYPE[array.getcapa()]();
 	
-	//±éÀú×óÓÒÖ¸Õë Ğ¡Öµ·ÅÈëassitÁÙÊ±Êı×é
+	//éå†å·¦å³æŒ‡é’ˆ å°å€¼æ”¾å…¥assitä¸´æ—¶æ•°ç»„
 	while (left <= mid && right <= high) 
 	{
 		/*if (array[left] <= array[right]) assit[i++] = array[left++];
 		else assit[i++] = array[right++];*/
 		(array[left] <= array[right])?(assit[i++] = array[left++]): assit[i++] = array[right++];
 	}
-	while (left <= mid) {assit[i++] = array[left++];}//½«×óÓÒÊı×éÖĞÊ£ÓàµÄÔªËØ
-	while (right <= high) {assit[i++] = array[right++];}//¶¼×ªÒÆµ½ÁÙÊ±Êı×éÖĞ
+	while (left <= mid) {assit[i++] = array[left++];}//å°†å·¦å³æ•°ç»„ä¸­å‰©ä½™çš„å…ƒç´ 
+	while (right <= high) {assit[i++] = array[right++];}//éƒ½è½¬ç§»åˆ°ä¸´æ—¶æ•°ç»„ä¸­
 	
 	for (int index = low; index <= high; index++) {
 			array[index] = assit[index];
 	}
 	delete[] assit;
 }
-//¹é²¢ÅÅĞò   ´´½¨×ÓÊı×é µİ¹é
+//å½’å¹¶æ’åº   åˆ›å»ºå­æ•°ç»„ é€’å½’
 void MergeSort(Array_template<TYPE>& array, int low, int high )
 {
 	if (low >= high) return;
 	int mid = (low + high) / 2;
-	//´ÓÖĞ¼äÇĞ¿ª
+	//ä»ä¸­é—´åˆ‡å¼€
 	MergeSort(array, low, mid);
 	MergeSort(array, mid + 1, high);
-	//Á½¸ö×éµ¥¶ÀÅÅĞò
+	//ä¸¤ä¸ªç»„å•ç‹¬æ’åº
 	Merge(array, low, mid, high);
 }
-//¹é²¢ÅÅĞò(½Ó¿Ú)
+//å½’å¹¶æ’åº(æ¥å£)
 void MergeSort(Array_template<TYPE>& array)
 {
 	int low = 0;
-	int high = array.getcapa()-1;//×îĞ¡Ë÷ÒıºÍ×î´óË÷Òı
-	MergeSort(array, low, high);//¶Ô´Ó0ÖÁ×îºó½øĞĞÅÅĞò
-	cout << "¹é²¢ÅÅĞò:" << endl;
+	int high = array.getcapa()-1;//æœ€å°ç´¢å¼•å’Œæœ€å¤§ç´¢å¼•
+	MergeSort(array, low, high);//å¯¹ä»0è‡³æœ€åè¿›è¡Œæ’åº
+	cout << "å½’å¹¶æ’åº:" << endl;
 }
+//å¿«é€Ÿæ’åº  åˆ›å»ºå­æ•°ç»„ é€’å½’
+void QuickSort(Array_template<TYPE>& array, int left, int right) 
+{
+	int i = left, j = right;
+	int midindex = array[(left + right) / 2];
 
+	while (i <= j)
+	{
+		while (array[i] < midindex)i++;//ä»å·¦åˆ°å³æ‰¾åˆ°å¤§äºç­‰äºåŸºå‡†ç‚¹çš„å…ƒç´  
+		while (array[j] > midindex)j--;//ä»å³åˆ°å·¦æ‰¾åˆ°å°äºç­‰äºåŸºå‡†ç‚¹çš„å…ƒç´ 
+
+		if (i <= j)//å¦‚æœi<=j   åˆ™äº’æ¢å…ƒç´ 
+		{
+			TYPE temp;
+			temp = array[i];
+			array[i] = array[j];
+			array[j] = temp;
+			i++;
+			j--;
+		}
+	}
+	if (left < j) QuickSort(array, left, j);
+	if (i < right) QuickSort(array, i, right);
+}
+//å¿«é€Ÿæ’åº(æ¥å£)
+void QuickSort(Array_template<TYPE>& array)
+{
+	int low = 0;
+	int high = array.getcapa() - 1;//æœ€å°ç´¢å¼•å’Œæœ€å¤§ç´¢å¼•
+	QuickSort(array, low, high);//å¯¹ä»0è‡³æœ€åè¿›è¡Œæ’åº
+	cout << "å¿«é€Ÿæ’åº:" << endl;
+}
 
 
