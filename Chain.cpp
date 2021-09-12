@@ -4,19 +4,19 @@
 
 Chain* Chain::head = nullptr;
 
-//Á´±í·­×ªÊµÀı
-void uesChine() {
-	//´´½¨Ò»¸öÁ´±í
+//é“¾è¡¨ç¿»è½¬å®ä¾‹
+void filpChine() {
+	//åˆ›å»ºä¸€ä¸ªé“¾è¡¨
 	Chain* node = nullptr;
 
-	node->addChain("First paragraph");//Ìí¼Ó³õÊ¼ÔªËØ Í·²å·¨
+	node->addChain("First paragraph");//æ·»åŠ åˆå§‹å…ƒç´  å¤´æ’æ³•
 	node->addChain("Second paragraph");
 	node->addChain("The third paragraph");
 	node->addChain("The fourth paragraph");
 	node->addChain("The fifth paragraph");
 
 	node->printChain(); std::cout << std::endl;
-	node->flipChain();//·­×ªÁ´±í
+	node->flipChain();//ç¿»è½¬é“¾è¡¨
 	node->printChain(); std::cout << std::endl;
 
 	node->deleteChain();
@@ -82,17 +82,17 @@ void Chain::printChain(Chain* head)
 
 void Chain::flipChain()
 {
-	//µü´úËã·¨
+	//è¿­ä»£ç®—æ³•
 	Chain* previous = nullptr;
 	Chain* current;
 	Chain* temp;
 	current = Chain::head;
 	while (current != nullptr) {
-		temp = current->next; //´æÒ»ÏÂ ÏÂÎ»Î»ÖÃ
-		current->next = previous;// µ÷×ªÖ¸Õë
+		temp = current->next; //å­˜ä¸€ä¸‹ ä¸‹ä½ä½ç½®
+		current->next = previous;// è°ƒè½¬æŒ‡é’ˆ
 
-		previous = current;//previousÏòÇ°ÒÆ
-		current = temp;//currentÏòÇ°ÒÆ
+		previous = current;//previouså‘å‰ç§»
+		current = temp;//currentå‘å‰ç§»
 	}
 	Chain::head = previous;
 }
