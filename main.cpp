@@ -1,13 +1,17 @@
-#include<iostream>
+void flipChine();//é“¾è¡¨ç¿»è½¬å®ä¾‹
+void arrayDynamic();//åŠ¨æ€æ•°ç»„  å†’æ³¡æ’åº
 
-void uesChine();//Á´±í·­×ªÊµÀı
-void arrayDynamic();//¶¯Ì¬Êı×é  Ã°ÅİÅÅĞò
+void useQueue();//é“¾è¡¨é˜Ÿåˆ—
+void useStack();//é“¾è¡¨æ ˆ
+
+
 
 int main() {
 
 	std::cout << "hello world!" << std::endl;
+	flipChine();
 	arrayDynamic();
-
-
+	useQueue();
+	useStack();
 	return 0;
 }
